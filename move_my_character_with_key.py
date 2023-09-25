@@ -6,29 +6,29 @@ tuk_ground = load_image('TUK_GROUND.png')
 character = load_image('animation_sheet.png')
 
 def idle():
-	global frame, base, x, y
+	global frame, base, size, x, y
 	clear_canvas()
 	tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
 	if frame < 4:
-		character.clip_draw(1 + frame * 26, 500, 26, 25, x, y, 130, 130)
+		character.clip_draw(1 + frame * 26, 500, 26, 25, x, y, size, size)
 	elif frame >= 4 and frame < 8:
-		character.clip_draw(frame * 28 - 1, 500, 26, 25, x, y, 130, 130)
+		character.clip_draw(frame * 28 - 1, 500, 26, 25, x, y, size, size)
 	elif frame == 8:
-		character.clip_draw(frame * 28 - 5, 500, 28, 25, x, y, 130, 130)
+		character.clip_draw(frame * 28 - 5, 500, 28, 25, x, y, size, size)
 	elif frame > 8 and frame < 12:
-		character.clip_draw(frame * 28 - 10, 500, 28, 25, x, y, 130, 130)
+		character.clip_draw(frame * 28 - 10, 500, 28, 25, x, y, size, size)
 	else:
-		character.clip_draw(frame * 28 - 8, 500, 28, 25, x, y, 130, 130)
+		character.clip_draw(frame * 28 - 8, 500, 28, 25, x, y, size, size)
 	update_canvas()
 	handle_events()
 	frame = (frame + 1) % 16
 	delay(0.08)
 
 def left():
-	global frame, base, x, y
+	global frame, base, size, x, y
 	clear_canvas()
 	tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-	character.clip_composite_draw(base + frame * 30, 675, 28, 28, 0, 'h', x, y, 130, 130)
+	character.clip_composite_draw(base + frame * 30, 675, 28, 28, 0, 'h', x, y, size, size)
 	update_canvas()
 	handle_events()
 	frame = (frame + 1) % 8
@@ -37,10 +37,10 @@ def left():
 	delay(0.03)
 
 def right():
-	global frame, base, x, y
+	global frame, base, size, x, y
 	clear_canvas()
 	tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-	character.clip_draw(base + frame * 30, 675, 28, 25, x, y, 130, 130)
+	character.clip_draw(base + frame * 30, 675, 28, 25, x, y, size, size)
 	update_canvas()
 	handle_events()
 	frame = (frame + 1) % 8
@@ -49,13 +49,13 @@ def right():
 	delay(0.03)
 
 def up():
-	global frame, base, x, y
+	global frame, base, size, x, y
 	clear_canvas()
 	tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
 	if frame < 6:
-		character.clip_composite_draw(frame * 24, 465, 28, 28, 0, 'h', x, y, 130, 130)
+		character.clip_composite_draw(frame * 24, 465, 28, 28, 0, 'h', x, y, size, size)
 	else:
-		character.clip_composite_draw(frame * 24 + 1, 465, 28, 28, 0, 'h', x, y, 130, 130)
+		character.clip_composite_draw(frame * 24 + 1, 465, 28, 28, 0, 'h', x, y, size, size)
 	update_canvas()
 	handle_events()
 	frame = (frame + 1) % 10
@@ -64,10 +64,10 @@ def up():
 	delay(0.03)
 
 def down():
-	global frame, base, x, y
+	global frame, base, size, x, y
 	clear_canvas()
 	tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-	character.clip_composite_draw(frame * 29 + 250, 465, 28, 28, 0, 'h', x, y, 130, 130)
+	character.clip_composite_draw(frame * 29 + 250, 465, 28, 28, 0, 'h', x, y, size, size)
 	update_canvas()
 	handle_events()
 	frame = (frame + 1) % 4
@@ -108,6 +108,7 @@ x = 1280 // 2
 y = 1024 // 2
 frame = 0
 base = 4
+size = 120
 xdir, ydir = 0, 0
 
 while running:
