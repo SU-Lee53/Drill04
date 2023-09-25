@@ -25,28 +25,31 @@ def right():
 
 def handle_events():
 	global running, xdir, ydir
+
 	events = get_events()
 	for event in events:
 		if event.type == SDL_QUIT:
 			running = False
 		elif event.type == SDL_KEYDOWN:
 			if event.key == SDLK_UP:
-				pass
+				ydir += 1
 			elif event.key == SDLK_DOWN:
-				pass
+				ydir -= 1
 			elif event.key == SDLK_RIGHT:
-				pass
+				xdir += 1
 			elif event.key == SDLK_LEFT:
-				pass
-		elif event.key == SDL_KEYUP:
+				xdir -= 1
+			elif event.key == SDLK_ESCAPE:
+				running = False
+		elif event.type == SDL_KEYUP:
 			if event.key == SDLK_UP:
-				pass
+				ydir -= 1
 			elif event.key == SDLK_DOWN:
-				pass
+				ydir += 1
 			elif event.key == SDLK_RIGHT:
-				pass
+				xdir -= 1
 			elif event.key == SDLK_LEFT:
-				pass
+				xdir += 1
 
 running = True
 x = 1280 // 2
@@ -56,10 +59,23 @@ base = 4
 xdir = ydir = 0
 
 while running:
-	# left()
-	right()
-	x += xdir * 5
-	y += ydir * 5
+	clear_canvas()
+	tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+	if frame < 4:
+		character.clip_draw(1 + frame * 26, 500, 26, 25, x, y, 130, 130)
+	elif frame >= 4 and frame < 8:
+		character.clip_draw(frame * 28 - 1, 500, 26, 25, x, y, 130, 130)
+	elif frame == 8:
+		character.clip_draw(frame * 28 - 5, 500, 28, 25, x, y, 130, 130)
+	elif frame > 8 and frame < 12:
+		character.clip_draw(frame * 28 - 10, 500, 28, 25, x, y, 130, 130)
+	else:
+		character.clip_draw(frame * 28 - 8, 500, 28, 25, x, y, 130, 130)
+	update_canvas()
+	handle_events()
+	frame = (frame + 1) % 16
+	x += xdir * 20
+	y += ydir * 20
 	delay(0.1)
 
 
